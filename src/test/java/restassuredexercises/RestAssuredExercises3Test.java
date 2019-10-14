@@ -1,10 +1,7 @@
 package restassuredexercises;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import restassuredanswers.LocationData;
+import org.junit.*;
 
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static io.restassured.RestAssured.given;

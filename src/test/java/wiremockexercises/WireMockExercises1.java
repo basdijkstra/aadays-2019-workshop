@@ -30,7 +30,7 @@ public class WireMockExercises1 {
     public void setupStubExercise101() {
 
         /************************************************
-         * Create a stub that will response to a POST
+         * Create a stub that will respond to a POST
          * to /pl/80-862 with an HTTP status code 200
          ************************************************/
 
@@ -39,7 +39,7 @@ public class WireMockExercises1 {
     public void setupStubExercise102() {
 
         /************************************************
-         * Create a stub that will response to a POST
+         * Create a stub that will respond to a POST
          * to /pl/80-862 with a header 'Content-Type' with
          * value 'text/plain' and a response body 'Posted!'
          ************************************************/
