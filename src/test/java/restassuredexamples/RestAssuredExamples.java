@@ -3,8 +3,13 @@ package restassuredexamples;
 import com.tngtech.java.junit.dataprovider.DataProvider;
 import com.tngtech.java.junit.dataprovider.DataProviderRunner;
 import com.tngtech.java.junit.dataprovider.UseDataProvider;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -111,5 +116,85 @@ public class RestAssuredExamples {
             as(Address.class);
 
         Assert.assertEquals("Amsterdam", myAddress.getCity());
+    }
+
+    private static String myAuthenticationToken;
+
+    /*
+    @BeforeClass
+    public static void retrieveToken() {
+
+        myAuthenticationToken =
+
+            given().
+                auth().
+                preemptive().
+                basic("username", "password").
+            when().
+                get("https://my.secure/api").
+            then().
+                extract().
+                path("");
+    }
+    */
+
+    @Test
+    public void usePreviouslyStoredAuthToken() {
+
+        given().
+            auth().
+            oauth2(myAuthenticationToken).
+            when().
+            get("https://my.very.secure/api").
+            then().
+            assertThat().
+            statusCode(200);
+    }
+
+    private static ResponseSpecification responseSpec;
+
+    @BeforeClass
+    public static void createResponseSpec() {
+
+        responseSpec =
+            new ResponseSpecBuilder().
+                expectStatusCode(200).
+                expectContentType(ContentType.JSON).
+                build();
+    }
+
+    @Test
+    public void useResponseSpec() {
+
+        given().
+        when().
+            get("http://api.zippopotam.us/us/90210").
+        then().
+            spec(responseSpec).
+        and().
+            body("country", equalTo("United States"));
+    }
+
+    private static RequestSpecification requestSpec;
+
+    @BeforeClass
+    public static void createRequestSpec() {
+
+        requestSpec =
+            new RequestSpecBuilder().
+                setBaseUri("http://api.zippopotam.us").
+                build();
+    }
+
+    @Test
+    public void useRequestSpec() {
+
+        given().
+            spec(requestSpec).
+        when().
+            get("/us/90210").
+        then().
+            assertThat().
+            statusCode(200);
     }
 }
