@@ -44,6 +44,7 @@ public class RestAssuredExercises2Test {
 	 ******************************************************/
 	
 	@Test
+	@UseDataProvider("zipCodeData")
 	public void checkStateForCountryCodeAndZipCode() {
 		
 		given().

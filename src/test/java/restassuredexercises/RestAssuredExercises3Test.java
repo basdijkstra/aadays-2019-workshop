@@ -1,13 +1,16 @@
-package restassuredanswers;
+package restassuredexercises;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
-import org.junit.*;
+import org.junit.Assert;
+import org.junit.Rule;
+import org.junit.Test;
+import restassuredanswers.LocationData;
 
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
 
-public class RestAssuredAnswers3Test {
+public class RestAssuredExercises3Test {
 
 	@Rule
 	public WireMockRule wireMockRule = new WireMockRule(options().port(9876));
@@ -24,17 +27,9 @@ public class RestAssuredAnswers3Test {
 	@Test
 	public void postLocationDataObject_checkResponseHttpStatusCode_expect200() {
 
-		LocationData locationData = new LocationData();
-
 		given().
-			body(locationData).
 		when().
-			post("http://localhost:9876/us/68746").
-		then().
-			assertThat().
-			statusCode(200).
-		and().
-			body("result", equalTo("OK"));
+		then();
 	}
 
 	/*******************************************************
@@ -49,17 +44,9 @@ public class RestAssuredAnswers3Test {
 	@Test
 	public void postLocationDataObjectWrongZipCode_checkResponseHttpStatusCode_expect400() {
 
-		LocationData locationData = new LocationData();
-
-		locationData.setPostCode("68745");
-
 		given().
-			body(locationData).
-			when().
-			post("http://localhost:9876/us/68746").
-			then().
-			assertThat().
-			statusCode(400);
+		when().
+		then();
 	}
 
 	/*******************************************************
@@ -73,13 +60,7 @@ public class RestAssuredAnswers3Test {
 	@Test
 	public void getLocationDataObjectAndDeserialize_checkCountry_expectPoland() {
 
-		LocationData locationData =
-
 		given().
-			when().
-		get("http://localhost:9876/pl/80-862").
-			as(LocationData.class);
-
-		Assert.assertEquals("Poland", locationData.getCountry());
+		when();
 	}
 }
