@@ -57,6 +57,7 @@ public class WireMockExercises4 {
          * status code 200 and a response body containing
          * the value of the JSON element car.model extracted
          * from the request body
+         * Don't forget to enable response templating!
          ************************************************/
 
     }
